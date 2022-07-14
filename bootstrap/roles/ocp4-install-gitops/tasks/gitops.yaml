@@ -16,7 +16,7 @@
 #   delay: 10
 
 # added: Wait for GitOps Deployment
-- name: Pause for 2 minutes to GitOps Deployment
+- name: Pause for 2 minutes to GitOps Operator is ready
   ansible.builtin.pause:
     minutes: 2
 
@@ -38,7 +38,7 @@
 #   delay: 10
 
 # added: Wait for Pipeline Deployment
-- name: Pause for 2 minutes to Pipeline Deployment
+- name: Pause for 2 minutes to Pipeline Operator is ready
   ansible.builtin.pause:
     minutes: 2
 

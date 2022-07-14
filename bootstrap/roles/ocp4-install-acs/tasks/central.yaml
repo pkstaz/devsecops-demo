@@ -28,9 +28,9 @@
 #   delay: 10
 
 # added: Wait for ACS CRD Deployment
-- name: Pause for 2 minutes to ACS Deployment
+- name: Pause for 5 minutes to ACS Operator
   ansible.builtin.pause:
-    minutes: 2
+    minutes: 5
 
 - name: Create ACS Central
   kubernetes.core.k8s:
