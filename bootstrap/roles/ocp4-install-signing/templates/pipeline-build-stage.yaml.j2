@@ -131,12 +131,27 @@ spec:
       - name: PATH_CONTEXT
         value: spring-petclinic/target
       - name: IMAGE_NAME
-        value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/spring-petclinic
+        value: {{ quay_route}}/{{ quay_org_name }}/spring-petclinic-stage
       - name: IMAGE_TAG
         value: $(params.APP_IMAGE_TAG)
     workspaces:
     - name: source
       workspace: workspace
+  - name: image-sign
+    taskRef:
+      name: cosign-task
+    runAfter:
+    - build-image
+    params:
+      - name: IMAGE
+        value: "image-registry.openshift-image-registry.svc:5000/{{pipeline_namespace}}/cosign-pod"
+      - name: SIGNATURE_IMAGE
+        value: "{{ quay_route}}/{{ quay_org_name }}/spring-petclinic-stage"
+      - name: ARGS
+        value: 
+          - "sign"
+          - "--allow-insecure-registry"
+          - "--key k8s://{{ pipeline_namespace }}/{{ secret_generate_name }}"
   - name: image-scan
     runAfter:
     - build-image
@@ -145,7 +160,7 @@ spec:
       kind: ClusterTask
     params:
     - name: image
-      value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/spring-petclinic
+      value: {{ quay_route}}/{{ quay_org_name }}/spring-petclinic-stage
     - name: rox_api_token
       value: roxsecrets
     - name: rox_central_endpoint
@@ -162,7 +177,7 @@ spec:
       kind: ClusterTask
     params:
     - name: image
-      value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/spring-petclinic
+      value: {{ quay_route}}/{{ quay_org_name }}/spring-petclinic-stage
     - name: rox_api_token
       value: roxsecrets
     - name: rox_central_endpoint
@@ -191,6 +206,7 @@ spec:
       workspace: workspace
   - name: update-deployment
     runAfter:
+    - image-sign
     - image-scan
     - image-check
     - deploy-check
@@ -206,7 +222,7 @@ spec:
       - name: CURRENT_IMAGE
         value: quay.io/siamaksade/spring-petclinic:latest
       - name: NEW_IMAGE
-        value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/spring-petclinic
+        value: {{ quay_route}}/{{ quay_org_name }}/spring-petclinic-stage
       - name: NEW_DIGEST
         value: "$(tasks.build-image.results.IMAGE_DIGEST)"
       - name: KUSTOMIZATION_PATH
