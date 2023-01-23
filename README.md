@@ -4,10 +4,10 @@
 
 DevSecOps CICD pipeline demo using several technologies such as:
 
-- [Openshift Pipelines](https://www.openshift.com/learn/topics/ci-cd)
-- [Openshift GitOps](https://www.openshift.com/blog/announcing-openshift-gitops)
-- [Openshift Advanced Cluster Security for Kubernetes](https://www.redhat.com/en/resources/advanced-cluster-security-for-kubernetes-datasheet)
-- [Openshift Container Registry](https://docs.openshift.com/container-platform/latest/registry/architecture-component-imageregistry.html)
+- [OpenShift Pipelines](https://www.openshift.com/learn/topics/ci-cd)
+- [OpenShift GitOps](https://www.openshift.com/blog/announcing-openshift-gitops)
+- [OpenShift Advanced Cluster Security for Kubernetes](https://www.redhat.com/en/resources/advanced-cluster-security-for-kubernetes-datasheet)
+- [OpenShift Container Registry](https://docs.openshift.com/container-platform/latest/registry/architecture-component-imageregistry.html)
 
 Vulnerability and configuration management methods included in this demo are the following:
 
@@ -167,7 +167,7 @@ You can check the `s2ijava-mgr.yaml` file for more details. We have added a step
 
 * [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-rhel-centos-or-fedora)
 
-* [Install Kubernetes Ansible Module](https://docs.ansible.com/ansible/latest/collections/community/kubernetes/k8s_module.html)
+* [Install Kubernetes Ansible Module](https://docs.ansible.com/ansible/latest/collections/kubernetes/core/k8s_module.html)
 
 ```sh
 ansible-galaxy collection install community.kubernetes
@@ -238,6 +238,4 @@ NOTE: This pipeline will fail if you don't [disable the "Fixable at least Import
 
 # Credits
 
-This repo is heavily based in the [CICD repository](https://github.com/siamaksade/openshift-cicd-demo) and work of Siamak Sadeghianfar. Kudos to Siamak!
-
-Big thanks also to [Rodrigo Alvares](https://github.com/ralvares) that helped with their wisdom and knowledge in this demo.
+Big thanks for the [contributors](https://github.com/rcarrata/devsecops-demo/graphs/contributors) and reviews that helped so much in this demo! We grow as we share!
